@@ -143,6 +143,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+config_private.py
 
 # Spyder project settings
 .spyderproject

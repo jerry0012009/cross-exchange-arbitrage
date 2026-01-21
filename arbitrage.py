@@ -1,10 +1,42 @@
 import asyncio
 import sys
 import argparse
+import os
 from decimal import Decimal
 import dotenv
 
 from strategy.edgex_arb import EdgexArb
+
+
+def load_private_config():
+    """Optionally load credentials from config_private.py into env."""
+    try:
+        import config_private as private_config
+    except Exception:
+        return
+
+    def first_attr(*names):
+        for name in names:
+            if hasattr(private_config, name):
+                value = getattr(private_config, name)
+                if value:
+                    return str(value)
+        return None
+
+    mapping = {
+        "BINANCE_API_KEY": ("BINANCE_API_KEY", "BN_API_KEY_ACCOUNT2"),
+        "BINANCE_API_SECRET": ("BINANCE_API_SECRET", "BN_SECRET_KEY_ACCOUNT2"),
+        "OKX_API_KEY": ("OKX_API_KEY", "OKX_API_KEY_JERRYPSY"),
+        "OKX_API_SECRET": ("OKX_API_SECRET", "OKX_SECRET_KEY_JERRYPSY"),
+        "OKX_API_PASSPHRASE": ("OKX_API_PASSPHRASE", "OKX_PASSPHRASE_JERRYPSY"),
+    }
+
+    for env_key, attr_names in mapping.items():
+        if os.getenv(env_key):
+            continue
+        value = first_attr(*attr_names)
+        if value:
+            os.environ[env_key] = value
 
 
 def parse_arguments():
@@ -45,6 +77,7 @@ async def main():
     args = parse_arguments()
 
     dotenv.load_dotenv()
+    load_private_config()
 
     # Validate exchange
     validate_exchange(args.exchange)

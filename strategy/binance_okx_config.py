@@ -61,9 +61,13 @@ def fetch_binance_precision(
 
     symbols = data.get("symbols", [])
     if not symbols:
+        raise ValueError("Binance exchangeInfo response missing symbols")
+
+    entry = next((item for item in symbols if item.get("symbol") == symbol), None)
+    if not entry:
         raise ValueError(f"Binance symbol not found: {symbol}")
 
-    filters = {f["filterType"]: f for f in symbols[0].get("filters", [])}
+    filters = {f["filterType"]: f for f in entry.get("filters", [])}
 
     price_filter = filters.get("PRICE_FILTER", {})
     lot_filter = filters.get("LOT_SIZE", {})

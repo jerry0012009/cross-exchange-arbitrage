@@ -12,3 +12,17 @@ EDGEX_WS_URL=wss://quote.edgex.exchange
 API_KEY_PRIVATE_KEY=your_api_key_private_key_here
 LIGHTER_ACCOUNT_INDEX=your_account_index
 LIGHTER_API_KEY_INDEX=your_api_key_index
+
+# Binance Futures (USDT perpetual)
+BINANCE_API_KEY=your_binance_api_key_here
+BINANCE_API_SECRET=your_binance_api_secret_here
+BINANCE_BASE_URL=https://fapi.binance.com
+BINANCE_WS_BASE_URL=wss://fstream.binance.com
+
+# OKX (USDT perpetual)
+OKX_API_KEY=your_okx_api_key_here
+OKX_API_SECRET=your_okx_api_secret_here
+OKX_API_PASSPHRASE=your_okx_passphrase_here
+OKX_BASE_URL=https://www.okx.com
+OKX_WS_PUBLIC_URL=wss://ws.okx.com:8443/ws/v5/public
+OKX_WS_PRIVATE_URL=wss://ws.okx.com:8443/ws/v5/private
